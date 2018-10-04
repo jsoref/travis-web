@@ -415,7 +415,7 @@ section.billing {
     color: $asphalt-grey;
     font-size: 16px;
   }
-  
+
   .billing-section-link {
     text-decoration: underline;
 
@@ -665,6 +665,19 @@ header.space-between {
 
       .icon {
         @include colorSVG($cement-grey);
+      }
+    }
+
+    &.migratable {
+      opacity: 1.0;
+
+      .button:hover {
+        background-color: $cement-grey;
+        color: white;
+
+        .icon {
+          @include colorSVG(white);
+        }
       }
     }
 

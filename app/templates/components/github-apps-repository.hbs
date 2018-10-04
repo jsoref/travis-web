@@ -4,9 +4,18 @@
   {{name}}
 {{/link-to}}
 
-{{#unless repository.active_on_org}}
+{{#if repository.active_on_org}}
+  {{#if migratable}}
+    <a href="#" role="button" id="migration-modal" class="profile-settings button"
+      {{action "triggerMigrationModal"}}>
+      {{svg-jar "icon-migrate" class="icon"}}
+      Migrate
+    </a>
+  {{/if}}
+{{else}}
   {{#if admin}}
-    {{#link-to "settings" repository.owner.login repository.name class="profile-settings button" title="Go to Travis CI repository settings"}}
+    {{#link-to "settings" repository.owner.login repository.name
+    class="profile-settings button" title="Go to Travis CI repository settings"}}
       {{svg-jar 'icon-settings' class="icon icon-hover"}}
       Settings
     {{/link-to}}
@@ -17,4 +26,13 @@
       {{tooltip-on-element text='Requires admin permissions'}}
     </a>
   {{/if}}
-{{/unless}}
+{{/if}}
+
+{{#if isShowingRepositoryMigrationModal}}
+  {{#modal-dialog
+     onClose="toggleRepositoryMigrationModal"
+     targetAttachment="center"
+     translucentOverlay=true}}
+    {{status-images repo=repository onClose=(action 'toggleStatusBadgeModal')}}
+  {{/modal-dialog}}
+{{/if}}
